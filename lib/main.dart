@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool x2 = false;
   int limite=20;
   int remplazo=0;
-  String carta = "";
+  String turno = "Jugador 1";
 
   void mostrarMensaje(String mensaje) {
     showDialog(
@@ -79,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [Text(contador.toString()),
+          Text(turno.toString()),
        Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: jugador1.asMap().entries.map((entry) {
@@ -136,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
                       }
                   });
+                      turno ="Jugador 2";
                   },
               ),
             );
@@ -151,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 child: Container(
-                  decoration: cajaRedonda(Colors.blue),
+                  decoration: cajaRedonda(Colors.red),
                   height: size,
                   width: size,
                   child: Center(
@@ -197,6 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           mostrarMensaje("Ha perdido el jugador 2");
                           contador=0;
                         }
+                      turno ="Jugador 1";
                       }
                   });
                   },
