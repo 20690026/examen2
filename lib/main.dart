@@ -32,11 +32,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   double size = 100.0;
-  List<int> jugador1 = List<int>.generate(4, (index) => Random().nextInt(9) + 1);
-  List<int> jugador2 = List<int>.generate(4, (index) => Random().nextInt(9) + 1);
+  List<int> jugador1 = List<int>.generate(4, (index) => Random().nextInt(11) + 1);
+  List<int> jugador2 = List<int>.generate(4, (index) => Random().nextInt(11) + 1);
   int contador=0;
   bool bandera = false;
+  bool x2 = false;
   int limite=20;
+  int remplazo=0;
+  String carta = "";
 
   void mostrarMensaje(String mensaje) {
     showDialog(
@@ -90,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: size,
                   child: Center(
                     child: Text(
+                      
                       numero.toString(),
                       style: const TextStyle(fontSize: 24),
                     ),
@@ -98,7 +102,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onTap: () {
                     setState(() {
+                      int comodines = Random().nextInt(3) +1;
+                      if (x2 == true) {
+                        contador= numero*2;
+                      }
+                      if (comodines == 1) {
+                      int comodin = Random().nextInt(3) +1;
+                        switch (comodin) {
+                          case 1:
+                            numero=0;
+                            contador+=0;
+                            break;
+                          
+                          case 2:
+                          numero= -10;
+                          contador -= 10;
+                          break;
+
+                          case 3: 
+                          x2= true;
+                          default:
+                        }
+                      }else if(comodines>1){
+                        
                         contador += numero;
+                        
                         if(contador < limite){
                           jugador1[index] = Random().nextInt(9) + 1;
                           bandera= true;
@@ -106,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           mostrarMensaje("Ha perdido el jugador 1");
                           contador=0;
                         }
-
+                      }
                   });
                   },
               ),
@@ -114,29 +142,69 @@ class _MyHomePageState extends State<MyHomePage> {
           }).toList(),
         ),
                
-               
-               Row(
+                Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: jugador2.asMap().entries.map((entry) {
              int index = entry.key;
             int numero = entry.value;
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
+              child: GestureDetector(
+                child: Container(
                   decoration: cajaRedonda(Colors.blue),
                   height: size,
                   width: size,
                   child: Center(
                     child: Text(
+                      
                       numero.toString(),
                       style: const TextStyle(fontSize: 24),
                     ),
+                    
                   ),
                 ),
-                
+                onTap: () {
+                    setState(() {
+                      int comodines = Random().nextInt(3) +1;
+                      if (x2 == true) {
+                        contador= numero*2;
+                      }
+                      if (comodines == 1) {
+                      int comodin = Random().nextInt(3) +1;
+                        switch (comodin) {
+                          case 1:
+                            numero=0;
+                            contador+=0;
+                            break;
+                          
+                          case 2:
+                          numero= -10;
+                          contador -= 10;
+                          break;
+
+                          case 3: 
+                          x2= true;
+                          default:
+                        }
+                      }else if(comodines>1){
+                        
+                        contador += numero;
+                        
+                        if(contador < limite){
+                          jugador1[index] = Random().nextInt(9) + 1;
+                          bandera= true;
+                        } else if(contador>= limite){
+                          mostrarMensaje("Ha perdido el jugador 2");
+                          contador=0;
+                        }
+                      }
+                  });
+                  },
+              ),
             );
           }).toList(),
         ),
+              
         ],),
       
     );
